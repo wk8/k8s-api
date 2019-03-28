@@ -2927,6 +2927,10 @@ message PodSecurityContext {
   // +optional
   optional SELinuxOptions seLinuxOptions = 1;
 
+  // Windows security options.
+  // +optional
+  optional WindowsSecurityOptions windowsOptions = 8;
+
   // The UID to run the entrypoint of the container process.
   // Defaults to user specified in image metadata if unspecified.
   // May also be set in SecurityContext.  If set in both SecurityContext and
@@ -4081,6 +4085,10 @@ message SecurityContext {
   // +optional
   optional SELinuxOptions seLinuxOptions = 3;
 
+  // Windows security options.
+  // +optional
+  optional WindowsSecurityOptions windowsOptions = 10;
+
   // The UID to run the entrypoint of the container process.
   // Defaults to user specified in image metadata if unspecified.
   // May also be set in PodSecurityContext.  If set in both SecurityContext and
@@ -4841,5 +4849,18 @@ message WeightedPodAffinityTerm {
 
   // Required. A pod affinity term, associated with the corresponding weight.
   optional PodAffinityTerm podAffinityTerm = 2;
+}
+
+// WindowsSecurityOptions contain Windows-specific options and credentials.
+message WindowsSecurityOptions {
+  // GMSACredentialSpecName is the name of the GMSA credential spec to use.
+  // +optional
+  optional string gMSACredentialSpecName = 1;
+
+  // GMSACredentialSpec is where the GMSA admission webhook
+  // (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the
+  // GMSA credential spec named by the `GmsaCredentialSpecName` field.
+  // +optional
+  optional string gMSACredentialSpec = 2;
 }
 
